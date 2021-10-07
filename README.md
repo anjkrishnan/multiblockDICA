@@ -4,6 +4,7 @@ This is the GitHub repository for __Multiblock Discriminant Correspondence Analy
 ## Structure
 
 The folder structure is like the following:
+```
 +-- code
 |   +-- EnvSetUp.R
 |   +-- MHLAc_Block_DICA-AgeGen-Final.R
@@ -24,3 +25,4 @@ The folder structure is like the following:
 +-- KnowledgePaper.Rproj
 +-- README.md
 +-- .gitignore
+```
