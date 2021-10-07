@@ -1,5 +1,5 @@
 # Multi-block Discriminant Correpsondence Analysis (Multi-block DiCA)
-This is the GitHub repository for _Multiblock Discriminant Correspondence Analysis: How to analyze group differences from structured qualitative data_ by Kirshnan, Yu, Miles, Beaton, Rabin, and Abdi (in press).
+This is the GitHub repository for _Multiblock Discriminant Correspondence Analysis: How to analyze group differences from structured qualitative data_ by Kirshnan, Yu, Miles, Beaton, Rabin, and Abdi (in progress).
 
 ## Structure
 
