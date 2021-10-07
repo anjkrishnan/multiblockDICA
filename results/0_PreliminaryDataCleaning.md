@@ -1,18 +1,12 @@
----
-title: "0_Preliminary data cleaning"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("EnvSetUp.R")
-```
+0_Preliminary data cleaning
+================
 
 ## Step 0 - Preliminary data cleaning
 
-> Hi Anjali, I only copied and pasted the following chunk. You might want to break them into smaller chunks.
+> Hi Anjali, I only copied and pasted the following chunk. You might
+> want to break them into smaller chunks.
 
-```{r}
+``` r
 ## Main dataset
 data.master<- read.csv(paste0(DataDir, "MHLAc_AgeGen-ordered.csv"), header=TRUE)
 data.master$AgeGenCat <- gsub('25+.', '≥25', data.master$AgeGenCat)
@@ -55,11 +49,10 @@ design.maj.clin.nom <- as.matrix(makeNominalData(design.maj.clin))
 descriptors <-  cbind(design.gender, design.age, design.age.gen, design.major, design.clin, design.maj.clin) 
 colnames(descriptors) <- c("Gender", "Age", "AgeGen", "Major", "ClinCourse", "MajorClin")
 descriptors <- data.frame(descriptors)
-
 ```
 
 ### Save the output
-```{r save}
+
+``` r
 save.image(file = "../data/fromPerlim.RData")
 ```
-

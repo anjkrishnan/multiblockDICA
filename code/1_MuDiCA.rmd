@@ -5,10 +5,8 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source("code/EnvSetUp.R") # run with "code/" when knit
-                          # you might need to delete that when running locally
-                          # Also, check Line 37 in EnvSetUp.R too!
-load("data/fromPerlim.RData") # load output from the Preliminary Data Cleaning
+source("EnvSetUp.R")
+load("../data/fromPerlim.RData") # load output from the Preliminary Data Cleaning
 ```
 
 ## Step 1: Run Multi-block Discriminant Correspondence Analysis
@@ -51,6 +49,6 @@ resDiCA.inf <- tepDICA.inference.battery(XYmat,make_data_nominal = FALSE,
 
 ### Save the output
 ```{r save}
-save.image(file = "data/fromMuDiCA.RData")
+save.image(file = "../data/fromMuDiCA.RData")
 ```
 

@@ -11,14 +11,14 @@ graphics.off()
 #_____________________________________________________________________
 # parameters for pptx ----
 leTitre   <- 'DICA: MHLA-c' # my title
-leDir     <-  'results/'       # Where am I
+leDir     <-  '../results/'       # Where am I
 filename  <- 'GenAge-Block-DiCA'     # file name for results
 path2save <-  paste0(leDir, filename)
 #_____________________________________________________________________
 #_____________________________________________________________________
 # Preamble ----
 leHome    <- getwd()
-DataDir   <- 'data/'
+DataDir   <- '../data/'
 # libraries ----
 
 # install.packages('TInPosition') # if needed
@@ -35,6 +35,6 @@ library(Ckmeans.1d.dp)
 library(ggrepel)
 
 # A couple of functions we may need ----
-function.path <- "code/functions/" # check
+function.path <- "functions/" # check
 files.sources = list.files(function.path)
 sapply(paste0(function.path, files.sources), source)
