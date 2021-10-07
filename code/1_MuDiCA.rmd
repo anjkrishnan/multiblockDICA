@@ -1,0 +1,56 @@
+---
+title: "1_MuDiCA"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("code/EnvSetUp.R") # run with "code/" when knit
+                          # you might need to delete that when running locally
+                          # Also, check Line 37 in EnvSetUp.R too!
+load("data/fromPerlim.RData") # load output from the Preliminary Data Cleaning
+```
+
+## Step 1: Run Multi-block Discriminant Correspondence Analysis
+
+> Hi Anjali, I only copied and pasted the following chunk. You might want to break them into smaller chunks.
+
+```{r}
+# # # Plain DiCA WITH block normalization WITH projection
+groups.norm.nom.bary.sum <- rowSums(groups.norm.nom.bary)
+resDiCA.data <- (data.all.nom*matrix(data =groups.norm.nom.bary.sum, nrow = dim(data.all.nom)[1], ncol = length(groups.norm.nom.bary.sum),byrow=TRUE))
+rawData <- resDiCA.data
+
+#_____________________________________________________________________
+# Computations ----
+# Run DiCA  ----
+# If you want to give equal weights to call the categories, use the g.masses code below
+# g.masses <-  rep(1 / ncol(makeNominalData(XYmat)), length(unique(descriptors$MajorClin)))
+
+# recode as factors ----
+XYmat <- rawData
+design.choose <- descriptors$AgeGen
+
+g.masses <- NULL
+resDiCA <- tepDICA(XYmat, make_data_nominal = FALSE, 
+                   group.masses = g.masses,
+                   #weight = rep(1, nrow(XYmat)),# -- if equal weights for all columns,                    
+                   DESIGN = design.choose, graphs = FALSE)
+
+# Inferences ----
+set.seed(70301) # set the seed
+# for random so that we all have the same results.
+nIter = 1000
+resDiCA.inf <- tepDICA.inference.battery(XYmat,make_data_nominal = FALSE,
+                                         DESIGN = design.choose,
+                                         group.masses = g.masses,
+                                         test.iters = nIter,
+                                         #weight = rep(1, nrow(XYmat)), # -- if equal weights for all columns,
+                                         graphs = FALSE)
+```
+
+### Save the output
+```{r save}
+save.image(file = "data/fromMuDiCA.RData")
+```
+

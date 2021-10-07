@@ -1,126 +1,21 @@
-#_____________________________________________________________________
-# Clean start ----
-rm(list = ls())
-graphics.off()
-#_____________________________________________________________________
-# parameters for pptx ----
-leTitre   <- 'DICA: MHLA-c' # my title
-leDir     <-  paste0(getwd(),'/')        # Where am I
-filename  <- 'GenAge-Block-DiCA'     # file name for results
-path2save <-  paste0(leDir, filename)
-#_____________________________________________________________________
-#_____________________________________________________________________
-# Preamble ----
-# libraries ----
-library(tidyverse)
-library(ExPosition)
-# install.packages('TInPosition') # if needed
-library(TExPosition)
-library(TInPosition)
-# devtools::install_github('HerveAbdi/PTCA4CATA')
-library(PTCA4CATA)
-# devtools::install_github('HerveAbdi/data4PCCAR')
-library(data4PCCAR)
-library(Ckmeans.1d.dp)
-library(ggrepel)
+---
+title: "2_PlotResults"
+output: github_document
+---
 
-# A couple of functions we may need ----
-foo <- function(x) {
-  xuniq <- unique(x)
-  N <- length(xuniq)
-  res <- rep(NA, N)
-  for (i in 1:N) {
-    res[i] <- sum(x == xuniq[i])
-  }
-  return(res)
-}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("code/EnvSetUp.R") # run with "code/" when knit
+                          # you might need to delete that when running locally
+                          # Also, check Line 37 in EnvSetUp.R too!
+load("data/fromMuDiCA.RData") # load output from the Preliminary Data Cleaning
+```
 
-getColorFromTheWheel <- function(f.scores, design, order.dim = 1, color.range = c("#006e00", "#efc900")){
-  mean.f <- getMeans(f.scores, design)[,1:2]
-  ordered.f <- mean.f[order(mean.f[,1]),]
-  colfunc <- colorRampPalette(color.range)
-  colvec <- colfunc(nrow(mean.f))
-  names(colvec) <- rownames(ordered.f)
-  return(colvec)
-}
+## Plot the results
 
-#_____________________________________________________________________
-## Main dataset
-data.master<- read.csv("MHLAc_AgeGen-ordered.csv", header=TRUE)
-data.master$AgeGenCat <- gsub('25+.', '≥25', data.master$AgeGenCat)
-data.master$AgeGenCat <- gsub('18-24', '≤24', data.master$AgeGenCat)
-data.master$Age <- gsub('25+.', '≥25', data.master$Age)
-data.master$Age <- gsub('18-24', '≤24', data.master$Age)
-rownames(data.master) <- data.master[,1]
-design.gender <- as.matrix(data.master[,4])
-design.age <- as.matrix(data.master[,5])
-design.age.gen <- as.matrix(data.master[,6])
-design.age.sup <- as.matrix(data.master[,7])
-design.age.gen.sup <- as.matrix(data.master[,8])
-design.maj.clin <- as.matrix(data.master[,9])
-design.clin <- as.matrix(data.master[,10])
-design.major <- as.matrix(data.master[,11])
-data.all <- as.matrix(data.master[,-c(1:11)])
+> Hi Anjali, I only copied and pasted the following chunk. You might want to break them into smaller chunks.
 
-# Normalise data matrix by groups/tables
-groups.norm<- read.csv("MudiCA-Group-Norm-ordered.csv",header=TRUE)
-groups.norm.nom <- as.matrix(makeNominalData(groups.norm))
-groups.norm.nom.bary <- scale(groups.norm.nom, center = FALSE, scale = colSums(groups.norm.nom))
-
-# Get groups/tables and make nominal
-groups <- read.csv("MuDiCA_Groups_Transpose-1272-ordered.csv",header=TRUE)
-groups <- as.matrix(groups)
-groups.nominal <- as.matrix(makeNominalData(groups))
-colnames(groups.nominal) <-  sub("Disorder.", "", colnames(groups.nominal))
-
-## Nominalise data and design
-data.all.nom <- as.matrix(makeNominalData(data.all))
-design.gender.nom <- as.matrix(makeNominalData(design.gender))
-design.age.nom <- as.matrix(makeNominalData(design.age))
-design.age.sup.nom <- as.matrix(makeNominalData(design.age.sup))
-design.age.gen.nom <- as.matrix(makeNominalData(design.age.gen))
-design.age.gen.sup.nom <- as.matrix(makeNominalData(design.age.gen.sup))
-design.major.nom <- as.matrix(makeNominalData(design.major))
-design.clin.nom <- as.matrix(makeNominalData(design.clin))
-design.maj.clin.nom <- as.matrix(makeNominalData(design.maj.clin))
-
-descriptors <-  cbind(design.gender, design.age, design.age.gen, design.major, design.clin, design.maj.clin) 
-colnames(descriptors) <- c("Gender", "Age", "AgeGen", "Major", "ClinCourse", "MajorClin")
-descriptors <- data.frame(descriptors)
-
-# # # Plain DiCA WITH block normalization WITH projection
-groups.norm.nom.bary.sum <- rowSums(groups.norm.nom.bary)
-resDiCA.data <- (data.all.nom*matrix(data =groups.norm.nom.bary.sum, nrow = dim(data.all.nom)[1], ncol = length(groups.norm.nom.bary.sum),byrow=TRUE))
-rawData <- resDiCA.data
-
-#_____________________________________________________________________
-# Computations ----
-# Run DiCA  ----
-# If you want to give equal weights to call the categories, use the g.masses code below
-# g.masses <-  rep(1 / ncol(makeNominalData(XYmat)), length(unique(descriptors$MajorClin)))
-
-# recode as factors ----
-XYmat <- rawData
-design.choose <- descriptors$AgeGen
-
-g.masses <- NULL
-resDiCA <- tepDICA(XYmat, make_data_nominal = FALSE, 
-                   group.masses = g.masses,
-                   #weight = rep(1, nrow(XYmat)),# -- if equal weights for all columns,                    
-                   DESIGN = design.choose, graphs = FALSE)
-
-# Inferences ----
-set.seed(70301) # set the seed
-# for random so that we all have the same results.
-nIter = 1000
-resDiCA.inf <- tepDICA.inference.battery(XYmat,make_data_nominal = FALSE,
-                                         DESIGN = design.choose,
-                                         group.masses = g.masses,
-                                         test.iters = nIter,
-                                         #weight = rep(1, nrow(XYmat)), # -- if equal weights for all columns,
-                                         graphs = FALSE)
-#_____________________________________________________________________
-#_____________________________________________________________________
+```{r}
 # Graphics ----
 # scree for ev  ----
 # The ScreePlot. Fixed Effects. ----
@@ -1075,15 +970,13 @@ e003.BaseMap.Ctrj.blocks <- baseMap.ctrj.blocks$zeMap + label4Map +
 dev.new()
 print(e003.BaseMap.Ctrj.blocks)
 
-#_____________________________________________________________________
-#_____________________________________________________________________
-# End of Graphs ----
-#_____________________________________________________________________
-#_____________________________________________________________________
-# Save pptx ----
+```
+
+#### Save PowerPoint
+```{r}
 # Automatic save with saveGraph2pptx
 savedList <- PTCA4CATA::saveGraph2pptx(file2Save.pptx = path2save, 
                                        title = leTitre, 
                                        addGraphNames = TRUE)
+```
 
-#_____________________________________________________________________
