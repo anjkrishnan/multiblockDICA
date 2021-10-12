@@ -1,17 +1,9 @@
----
-title: "0_Preliminary data cleaning"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("EnvSetUp.R")
-```
+0_Preliminary data cleaning
+================
 
 ## Step 0 - Preliminary data cleaning
 
-```{r}
-
+``` r
 # Main dataset
 data.master<- read.csv(paste0(DataDir, "MHLAc_AgeGen_AllData.csv"), header=TRUE)
 
@@ -61,11 +53,10 @@ groups.norm.nom.bary <- scale(groups.norm.nom, center = FALSE, scale = colSums(g
 descriptors <-  cbind(design.gender, design.age, design.age.gen, design.major, design.clin, design.maj.clin) 
 colnames(descriptors) <- c("Gender", "Age", "AgeGen", "Major", "ClinCourse", "MajorClin")
 descriptors <- data.frame(descriptors)
-
 ```
 
 ### Save the output
-```{r save}
+
+``` r
 save.image(file = "../data/fromPrelim.RData")
 ```
-

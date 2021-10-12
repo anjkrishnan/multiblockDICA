@@ -1,17 +1,9 @@
----
-title: "1_MuDiCA"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("EnvSetUp.R")
-load("../data/fromPerlim.RData") # load output from the Preliminary Data Cleaning
-```
+1_MuDiCA
+================
 
 ## Step 1: Run Multiblock Discriminant Correspondence Analysis
 
-```{r}
+``` r
 # Set up block normalization
 groups.norm.nom.bary.sum <- rowSums(groups.norm.nom.bary)
 resDiCA.data <- (data.all.nom*matrix(data =groups.norm.nom.bary.sum, nrow = dim(data.all.nom)[1], ncol = length(groups.norm.nom.bary.sum),byrow=TRUE))
@@ -49,8 +41,12 @@ resDiCA.inf <- tepDICA.inference.battery(XYmat,make_data_nominal = FALSE,
                                          graphs = FALSE)
 ```
 
+    ## [1] "It is estimated that your iterations will take 0.27 minutes."
+    ## [1] "R is not in interactive() mode. Resample-based tests will be conducted. Please take note of the progress bar."
+    ## ================================================================================
+
 ### Save the output
-```{r save}
+
+``` r
 save.image(file = "../data/fromMuDiCA.RData")
 ```
-

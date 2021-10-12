@@ -1,17 +1,9 @@
----
-title: "2_PlotResults"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("EnvSetUp.R")
-load("../data/fromMuDiCA.RData") # load output from the Preliminary Data Cleaning
-```
+2_PlotResults
+================
 
 ## Plot the results
 
-```{r}
+``` r
 # Graphics ----
 # The ScreePlot. Fixed Effects. ----
 dev.new()
@@ -871,14 +863,16 @@ e003.BaseMap.Ctrj.blocks <- baseMap.ctrj.blocks$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(e003.BaseMap.Ctrj.blocks)
-
 ```
 
 #### Save PowerPoint
-```{r}
+
+``` r
 # Automatic save with saveGraph2pptx
 savedList <- PTCA4CATA::saveGraph2pptx(file2Save.pptx = path2save, 
                                        title = leTitre, 
                                        addGraphNames = TRUE)
 ```
 
+    ## Warning: File: ../results/GenAge-Block-DiCA.pptx already exists.
+    ##  Oldfile has been renamed: ../results/GenAge-Block-DiCA-2021-10-11.pptx
