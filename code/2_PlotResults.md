@@ -4,6 +4,7 @@
 ## Plot the results
 
 ``` r
+knitr::opts_chunk$set(echo=TRUE, fig.keep='all', fig.show='asis')
 # Graphics ----
 # The ScreePlot. Fixed Effects. ----
 dev.new()
@@ -14,7 +15,9 @@ a0001.Scree.sv <- PlotScree(ev = resDiCA$TExPosition.Data$eigs,
           lwd4Kaiser  = 2)
 # Save the plot
 #a0001.Scree.sv <- recordPlot()
+```
 
+``` r
 #_____________________________________________________________________
 # catColors ---- Age + Gender
 catColors <- as.factor(design.age.gen)
@@ -104,14 +107,18 @@ a002a.DICA <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a002a.DICA)
+```
 
+``` r
 # The map with observations and group means with performance colors
 a002aa.DICA <- Imap.perf$zeMap + label4Map +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a002aa.DICA)
+```
 
+``` r
 #_____________________________________________________________________
 # Confidence intervals
 # Bootstrapped CI ----
@@ -145,7 +152,9 @@ a002b.DICA.withCI <-  Imap$zeMap_background + Imap$zeMap_dots +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a002b.DICA.withCI)
+```
 
+``` r
 # The map with hull ----
 Fii <- resDiCA$TExPosition.Data$fii
 Fii.loo <-resDiCA.inf$Inference.Data$loo.data$loo.fii
@@ -177,20 +186,22 @@ a002c.DICA.withTolHull <-  Imap$zeMap_background + Imap$zeMap_dots +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   ggtitle('DICA: Group Centers with Tolerance Hulls and Observations') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
+  dev.new()
+  print(a002c.DICA.withTolHull )
+```
 
+``` r
 # Random effects
 a002d.DICA.withPredHull <-  Imap$zeMap_background + Imap$zeMap_dots + 
   Pred.GraphHull + label4Map +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   ggtitle('DICA: Group Centers with Prediction Hulls and Observations') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
+  dev.new()
+  print(a002d.DICA.withPredHull )
+```
 
-# To print the Hulls
-dev.new()
-print(a002c.DICA.withTolHull )
-dev.new()
-print(a002d.DICA.withPredHull )
-
+``` r
 #_____________________________________________________________________
 ## The map with observations, group means and supplementary projections
 
@@ -205,7 +216,9 @@ gen.sup <- Boot4Mean(resDiCA$TExPosition.Data$fii, design = design.gender, niter
 clin.sup <- Boot4Mean(resDiCA$TExPosition.Data$fii, design = design.clin, niter = 1000, suppressProgressBar = TRUE)
 
 interaction.sup <- Boot4Mean(resDiCA$TExPosition.Data$fii, design = design.age.gen, niter = 1000, suppressProgressBar = TRUE)
+```
 
+``` r
 # Age as supp
 col4Means.age <- recode(rownames(age.sup$GroupMeans),
                         "18-24" = '#e1037f',
@@ -239,7 +252,9 @@ a003aa.DICA.sup.age.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003aa.DICA.sup.age.CI)
+```
 
+``` r
 ## Gender as supp
 col4Means.gen <- recode(rownames(gen.sup$GroupMeans),
                         "Female" = '#fc83cb',
@@ -274,7 +289,9 @@ a003bb.DICA.sup.gen.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003bb.DICA.sup.gen.CI)
+```
 
+``` r
 ## Age and gender main effects as supp
 a003bbb.DICA.sup.age.gen <- Imap$zeMap + label4Map +
   supMap.age$zeMap_dots + supMap.age$zeMap_text + GraphElli.age +
@@ -282,7 +299,9 @@ a003bbb.DICA.sup.age.gen <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003bbb.DICA.sup.age.gen)
+```
 
+``` r
 ## Age and gender interaction
 col4Means.sup.interaction <- recode(rownames(interaction.sup$GroupMeans),
                                     "25+.M" = '#44277b', 
@@ -316,7 +335,9 @@ a003bbbbb.DICA.interaction.lines <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003bbbbb.DICA.interaction.lines)
+```
 
+``` r
 # Make CIs
 GraphElli.interaction <- PTCA4CATA::MakeCIEllipses(
   interaction.sup$BootCube[,1:2,],
@@ -331,7 +352,9 @@ a003bbbbbb.DICA.sup.interaction.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003bbbbbb.DICA.sup.interaction.CI)
+```
 
+``` r
 # Map with main effects and interaction
 a003bbbbbbb.DICA.sup.main.effects.interaction.CI <- Imap$zeMap + label4Map +
   supMap.gen$zeMap_dots + supMap.gen$zeMap_text + GraphElli.gen +
@@ -340,7 +363,9 @@ a003bbbbbbb.DICA.sup.main.effects.interaction.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003bbbbbbb.DICA.sup.main.effects.interaction.CI)
+```
 
+``` r
 ## More age-groups as supp
 col4Means.age.more <- recode(rownames(age.more.sup$GroupMeans),
                              "18-20" = '#e1037f',
@@ -378,7 +403,9 @@ a003cc.DICA.sup.age.more.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16)) 
 dev.new()
 print(a003cc.DICA.sup.age.more.CI)
+```
 
+``` r
 ## More age-groups and gender as supp
 col4Means.age.gen.more <- recode(rownames(age.gen.more.sup$GroupMeans),
                              "18-20.F" = '#fc83cb',
@@ -427,7 +454,9 @@ a003ddd.DICA.sup.age.gen.more.lines <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003ddd.DICA.sup.age.gen.more.lines)
+```
 
+``` r
 a003dd.DICA.sup.age.gen.more.CI <- Imap$zeMap + label4Map +
   GraphElli.age.gen.more + supMap.age.gen.more$zeMap_dots + supMap.age.gen.more$zeMap_text +
   geom_path(data = DICA.line.sup.F, color = 'hotpink3', size = 2, lineend = "round", linejoin = "round", alpha = 0.8) +
@@ -435,7 +464,9 @@ a003dd.DICA.sup.age.gen.more.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003dd.DICA.sup.age.gen.more.CI)
+```
 
+``` r
 ## Clinical course as supp
 
 col4Means.clin <- recode(rownames(clin.sup$GroupMeans),
@@ -470,7 +501,9 @@ a003ff.DICA.sup.clin.CI <- Imap$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(a003ff.DICA.sup.clin.CI)
+```
 
+``` r
 #_____________________________________________________________________
 # J-set ----
 # get colors
@@ -531,7 +564,9 @@ b003.MapJ.text <-  b001.BaseMap.Fj + lines4J +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(b003.MapJ.text)
+```
 
+``` r
 #_____________________________________________________________________
 # Create Factor map per block
 
@@ -556,7 +591,9 @@ b003a.MapJ.text.etio <-  b001.BaseMap.Fj.etio + lines4J.etio +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(b003a.MapJ.text.etio)
+```
 
+``` r
 Fj.symp <-Fj[groups.norm$Classification=='Symptoms',]
 col4symp <- col4VarNom[groups.norm$Classification=='Symptoms']
 baseMap.j.symp <- PTCA4CATA::createFactorMap(Fj.symp,
@@ -596,7 +633,9 @@ b003c.MapJ.text.treat <-  b001.BaseMap.Fj.treat + lines4J.treat +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(b003c.MapJ.text.treat)
+```
 
+``` r
 Fj.gen <-Fj[groups.norm$Classification=='General',]
 col4gen <- col4VarNom[groups.norm$Classification=='General']
 baseMap.j.gen <- PTCA4CATA::createFactorMap(Fj.gen,
@@ -616,7 +655,9 @@ b003d.MapJ.text.gen <-  b001.BaseMap.Fj.gen + lines4J.gen +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(b003d.MapJ.text.gen)
+```
 
+``` r
 #_____________________________________________________________________
 ##  Contributions ---- USE BLOCK COLORS
 #_____________________________________________________________________
@@ -644,6 +685,9 @@ c001.plotCtrj.1.all <-  c001.plotCtrj.1 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(c001.plotCtrj.1.all)
+```
+
+``` r
 #_____________________________________________________________________
 ###### CtrJ 2 ====
 # 
@@ -664,7 +708,9 @@ c002.plotCtrj.2.all <-  c002.plotCtrj.2 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(c002.plotCtrj.2.all)
+```
 
+``` r
 #_____________________________________________________________________
 # Contribution Maps ---- USE BLOCK COLORS
 
@@ -712,7 +758,9 @@ c003a.BaseMap.Ctrj <- baseMap.ctrj$zeMap + label4Map +
 #   baseMap.ctrj$zeMap_text + label4Map 
 dev.new()
 print(c003a.BaseMap.Ctrj)
+```
 
+``` r
 c003b.BaseMap.Ctrj.imp <- baseMap.ctrj.imp$zeMap + label4Map +
   ggtitle('Important Variables Contributions Map') + 
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
@@ -720,7 +768,9 @@ c003b.BaseMap.Ctrj.imp <- baseMap.ctrj.imp$zeMap + label4Map +
 #   baseMap.ctrj$zeMap_text + label4Map 
 dev.new()
 print(c003b.BaseMap.Ctrj.imp)
+```
 
+``` r
 #_____________________________________________________________________
 #  Bootstrap ratios ----
 #_____________________________________________________________________
@@ -748,7 +798,9 @@ d001.plotBRj.1.all <-  d001.plotBRj.1 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(d001.plotBRj.1.all)
+```
 
+``` r
 # #_____________________________________________________________________
 # ###### BR. 2 ====
 # # 
@@ -769,7 +821,9 @@ d002.plotBRj.2.all <-  d002.plotBRj.2 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(d002.plotBRj.2.all)
+```
 
+``` r
 # #_____________________________________________________________________
 
 ## Block projections
@@ -813,7 +867,9 @@ gg.compromise.graph.out.ca <- PTCA4CATA::createFactorMap(F.ca,
                            col.axes = "orchid4", alpha.axes = 0.5,
                            col.background = adjustcolor("lavender", alpha.f = 0),
                            text.cex = 5, alpha.points = 0.75)
+```
 
+``` r
 #________________________________________________
 # Partial FS ----
 
@@ -836,15 +892,18 @@ e001.partialFS.map.ca.byProducts <-
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(e001.partialFS.map.ca.byProducts) 
+```
 
-
+``` r
 e002.partialFS.map.ca.byCategories  <- 
   gg.compromise.graph.out.ca$zeMap + 
   map4PFS.ca$mapColByBlocks + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 dev.new()
 print(e002.partialFS.map.ca.byCategories)
+```
 
+``` r
 # Contribution Maps ----
 Ctr.Blocks <- tryProj$Ctrk*tryProj$bk
 block.contr.constraints <- Imap$constraints
