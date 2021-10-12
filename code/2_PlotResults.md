@@ -4,15 +4,19 @@
 ## Plot the results
 
 ``` r
-knitr::opts_chunk$set(echo=TRUE, fig.keep='all', fig.show='asis')
 # Graphics ----
 # The ScreePlot. Fixed Effects. ----
-dev.new()
+# dev.new()
 a0001.Scree.sv <- PlotScree(ev = resDiCA$TExPosition.Data$eigs,
           title = 'DICA MHLA-c: Inertia Scree Plot',
           plotKaiser = FALSE, 
           color4Kaiser = ggplot2::alpha('darkorchid4', .5),
           lwd4Kaiser  = 2)
+```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
 # Save the plot
 #a0001.Scree.sv <- recordPlot()
 ```
@@ -105,18 +109,22 @@ options(ggrepel.max.overlaps = Inf)
 a002a.DICA <- Imap$zeMap + label4Map +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a002a.DICA)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 # The map with observations and group means with performance colors
 a002aa.DICA <- Imap.perf$zeMap + label4Map +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a002aa.DICA)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -150,9 +158,11 @@ a002b.DICA.withCI <-  Imap$zeMap_background + Imap$zeMap_dots +
   GraphElli + label4Map +
   ggtitle('DICA: Group Centers with CI and Observations') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a002b.DICA.withCI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 # The map with hull ----
@@ -186,9 +196,11 @@ a002c.DICA.withTolHull <-  Imap$zeMap_background + Imap$zeMap_dots +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   ggtitle('DICA: Group Centers with Tolerance Hulls and Observations') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-  dev.new()
+#  dev.new()
   print(a002c.DICA.withTolHull )
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 # Random effects
@@ -197,9 +209,11 @@ a002d.DICA.withPredHull <-  Imap$zeMap_background + Imap$zeMap_dots +
   MapGroup$zeMap_dots + MapGroup$zeMap_text +
   ggtitle('DICA: Group Centers with Prediction Hulls and Observations') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-  dev.new()
+#  dev.new()
   print(a002d.DICA.withPredHull )
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -250,9 +264,11 @@ GraphElli.age <- PTCA4CATA::MakeCIEllipses(
 a003aa.DICA.sup.age.CI <- Imap$zeMap + label4Map +
   GraphElli.age + supMap.age$zeMap_dots + supMap.age$zeMap_text + 
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003aa.DICA.sup.age.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 ## Gender as supp
@@ -287,9 +303,11 @@ GraphElli.gen <- PTCA4CATA::MakeCIEllipses(
 a003bb.DICA.sup.gen.CI <- Imap$zeMap + label4Map +
   GraphElli.gen + supMap.gen$zeMap_dots + supMap.gen$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003bb.DICA.sup.gen.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 ## Age and gender main effects as supp
@@ -297,9 +315,11 @@ a003bbb.DICA.sup.age.gen <- Imap$zeMap + label4Map +
   supMap.age$zeMap_dots + supMap.age$zeMap_text + GraphElli.age +
   supMap.gen$zeMap_dots + supMap.gen$zeMap_text + GraphElli.gen +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003bbb.DICA.sup.age.gen)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 ## Age and gender interaction
@@ -333,9 +353,11 @@ a003bbbbb.DICA.interaction.lines <- Imap$zeMap + label4Map +
   geom_path(data = DICA.line.sup.F, color = '#fc83cb', size = 2, lineend = "round", linejoin = "round", alpha = 0.5) +
   geom_path(data = DICA.line.sup.M, color = '#4b98f9', size = 2, lineend = "round", linejoin = "round", alpha = 0.5) +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003bbbbb.DICA.interaction.lines)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 # Make CIs
@@ -350,9 +372,11 @@ GraphElli.interaction <- PTCA4CATA::MakeCIEllipses(
 a003bbbbbb.DICA.sup.interaction.CI <- Imap$zeMap + label4Map +
   GraphElli.interaction + supMap.interaction$zeMap_dots + supMap.interaction$zeMap_text + 
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003bbbbbb.DICA.sup.interaction.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 # Map with main effects and interaction
@@ -361,9 +385,11 @@ a003bbbbbbb.DICA.sup.main.effects.interaction.CI <- Imap$zeMap + label4Map +
   supMap.age$zeMap_dots + supMap.age$zeMap_text + GraphElli.age +
   supMap.interaction$zeMap_dots + supMap.interaction$zeMap_text + GraphElli.interaction +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003bbbbbbb.DICA.sup.main.effects.interaction.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 ## More age-groups as supp
@@ -401,9 +427,11 @@ GraphElli.age.more <- PTCA4CATA::MakeCIEllipses(
 a003cc.DICA.sup.age.more.CI <- Imap$zeMap + label4Map +
   GraphElli.age.more + supMap.age.more$zeMap_dots + supMap.age.more$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16)) 
-dev.new()
+# dev.new()
 print(a003cc.DICA.sup.age.more.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 ## More age-groups and gender as supp
@@ -452,9 +480,11 @@ a003ddd.DICA.sup.age.gen.more.lines <- Imap$zeMap + label4Map +
   geom_path(data = DICA.line.sup.M, color = '#4b98f9', size = 2, lineend = "round", linejoin = "round", alpha = 0.5) +
   supMap.age.gen.more$zeMap_dots + supMap.age.gen.more$zeMap_text +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003ddd.DICA.sup.age.gen.more.lines)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 a003dd.DICA.sup.age.gen.more.CI <- Imap$zeMap + label4Map +
@@ -462,9 +492,11 @@ a003dd.DICA.sup.age.gen.more.CI <- Imap$zeMap + label4Map +
   geom_path(data = DICA.line.sup.F, color = 'hotpink3', size = 2, lineend = "round", linejoin = "round", alpha = 0.8) +
   geom_path(data = DICA.line.sup.M, color = 'royalblue3', size = 2, lineend = "round", linejoin = "round", alpha = 0.8) +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003dd.DICA.sup.age.gen.more.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 ## Clinical course as supp
@@ -499,9 +531,11 @@ GraphElli.clin <- PTCA4CATA::MakeCIEllipses(
 a003ff.DICA.sup.clin.CI <- Imap$zeMap + label4Map +
   GraphElli.clin + supMap.clin$zeMap_dots + supMap.clin$zeMap_text + 
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(a003ff.DICA.sup.clin.CI)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -562,9 +596,11 @@ b001.BaseMap.Fj <- baseMap.j$zeMap + label4Map
 lines4J <- addLines4MCA(Fj, col4Var = col4Var)
 b003.MapJ.text <-  b001.BaseMap.Fj + lines4J +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(b003.MapJ.text)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -589,9 +625,11 @@ b001.BaseMap.Fj.etio <- baseMap.j.etio$zeMap + label4Map
 lines4J.etio <- addLines4MCA(Fj.etio, col4Var = col.etio.list)
 b003a.MapJ.text.etio <-  b001.BaseMap.Fj.etio + lines4J.etio +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(b003a.MapJ.text.etio)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 Fj.symp <-Fj[groups.norm$Classification=='Symptoms',]
@@ -611,9 +649,13 @@ b001.BaseMap.Fj.symp <- baseMap.j.symp$zeMap + label4Map
 lines4J.symp <- addLines4MCA(Fj.symp, col4Var = col.sym.list)
 b003b.MapJ.text.symp <-  b001.BaseMap.Fj.symp + lines4J.symp +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(b003b.MapJ.text.symp)
+```
 
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+``` r
 Fj.treat <-Fj[groups.norm$Classification=='Treatment',]
 col4treat <- col4VarNom[groups.norm$Classification=='Treatment']
 baseMap.j.treat <- PTCA4CATA::createFactorMap(Fj.treat,
@@ -631,9 +673,11 @@ b001.BaseMap.Fj.treat <- baseMap.j.treat$zeMap + label4Map
 lines4J.treat <- addLines4MCA(Fj.treat, col4Var = col.treat.list)
 b003c.MapJ.text.treat <-  b001.BaseMap.Fj.treat + lines4J.treat +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(b003c.MapJ.text.treat)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
 
 ``` r
 Fj.gen <-Fj[groups.norm$Classification=='General',]
@@ -653,9 +697,11 @@ b001.BaseMap.Fj.gen <- baseMap.j.gen$zeMap + label4Map
 lines4J.gen <- addLines4MCA(Fj.gen, col4Var = col.gen.list)
 b003d.MapJ.text.gen <-  b001.BaseMap.Fj.gen + lines4J.gen +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(b003d.MapJ.text.gen)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -683,9 +729,11 @@ c001.plotCtrj.1 <- PrettyBarPlot2(
   ylab = "Signed Contributions")
 c001.plotCtrj.1.all <-  c001.plotCtrj.1 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(c001.plotCtrj.1.all)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -706,9 +754,11 @@ c002.plotCtrj.2 <- PrettyBarPlot2(
   ylab = "Signed Contributions")
 c002.plotCtrj.2.all <-  c002.plotCtrj.2 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(c002.plotCtrj.2.all)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -756,9 +806,11 @@ c003a.BaseMap.Ctrj <- baseMap.ctrj$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 # c003.BaseMapNoDot.Ctrj  <- baseMap.ctrj$zeMap_background +
 #   baseMap.ctrj$zeMap_text + label4Map 
-dev.new()
+# dev.new()
 print(c003a.BaseMap.Ctrj)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 c003b.BaseMap.Ctrj.imp <- baseMap.ctrj.imp$zeMap + label4Map +
@@ -766,9 +818,11 @@ c003b.BaseMap.Ctrj.imp <- baseMap.ctrj.imp$zeMap + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
 # c003.BaseMapNoDot.Ctrj  <- baseMap.ctrj$zeMap_background +
 #   baseMap.ctrj$zeMap_text + label4Map 
-dev.new()
+# dev.new()
 print(c003b.BaseMap.Ctrj.imp)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ``` r
 #_____________________________________________________________________
@@ -796,9 +850,11 @@ d001.plotBRj.1 <- PrettyBarPlot2(
   ylab = "Bootstrap Ratios")
 d001.plotBRj.1.all <-  d001.plotBRj.1 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(d001.plotBRj.1.all)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 ``` r
 # #_____________________________________________________________________
@@ -819,9 +875,11 @@ d002.plotBRj.2 <- PrettyBarPlot2(
   ylab = "Bootstrap Ratios")
 d002.plotBRj.2.all <-  d002.plotBRj.2 +
   theme(axis.title = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(d002.plotBRj.2.all)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ``` r
 # #_____________________________________________________________________
@@ -890,18 +948,22 @@ e001.partialFS.map.ca.byProducts <-
   gg.compromise.graph.out.ca$zeMap + 
   map4PFS.ca$mapColByItems + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(e001.partialFS.map.ca.byProducts) 
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 ``` r
 e002.partialFS.map.ca.byCategories  <- 
   gg.compromise.graph.out.ca$zeMap + 
   map4PFS.ca$mapColByBlocks + label4Map +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(e002.partialFS.map.ca.byCategories)
 ```
+
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 ``` r
 # Contribution Maps ----
@@ -920,13 +982,14 @@ baseMap.ctrj.blocks <- PTCA4CATA::createFactorMap(Ctr.Blocks,
 e003.BaseMap.Ctrj.blocks <- baseMap.ctrj.blocks$zeMap + label4Map +
   ggtitle('Blocks Contributions Map') +
   theme(axis.title = element_text(size=16), axis.text.x = element_text(size=16), axis.text.y = element_text(size = 16))
-dev.new()
+# dev.new()
 print(e003.BaseMap.Ctrj.blocks)
 ```
 
-#### Save PowerPoint
+![](2_PlotResults_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 ``` r
+#### Save PowerPoint
 # Automatic save with saveGraph2pptx
 savedList <- PTCA4CATA::saveGraph2pptx(file2Save.pptx = path2save, 
                                        title = leTitre, 
