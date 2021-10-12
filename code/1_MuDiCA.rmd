@@ -6,7 +6,7 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 source("EnvSetUp.R")
-load("../data/fromPerlim.RData") # load output from the Preliminary Data Cleaning
+load("../data/fromPrelim.RData") # load output from the Preliminary Data Cleaning
 ```
 
 ## Step 1: Run Multiblock Discriminant Correspondence Analysis
