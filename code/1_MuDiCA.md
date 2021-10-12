@@ -41,7 +41,7 @@ resDiCA.inf <- tepDICA.inference.battery(XYmat,make_data_nominal = FALSE,
                                          graphs = FALSE)
 ```
 
-    ## [1] "It is estimated that your iterations will take 0.34 minutes."
+    ## [1] "It is estimated that your iterations will take 0.27 minutes."
     ## [1] "R is not in interactive() mode. Resample-based tests will be conducted. Please take note of the progress bar."
     ## ================================================================================
 
